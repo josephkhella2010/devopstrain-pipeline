@@ -1,0 +1,70 @@
+name: Simple Node Pipeline
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # =========================
+      # Checkout repository
+      # =========================
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # =========================
+      #   setup Node.js
+      # =========================
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      #++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+      # frontend  environment
+
+      #++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+      - name: Install Frontend dependencies
+        working-directory: ./frontend/train
+        run: npm ci
+
+      - name: Build frontend Environment
+        working-directory: ./frontend/train
+        run: npm run build
+
+      - name: run frontend lint
+        working-directory: ./frontend/train
+        run: npm run lint
+
+      #++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+      # backend  environment
+
+      #++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+      - name: Install Backend dependencies
+        working-directory: ./backend
+        run: npm ci
+
+      - name: Build backend Environment
+        working-directory: ./backend
+        run: npm run build
+
+      # =========================
+      # FINAL STEP
+      # =========================
+      
+      - name: Show repository files
+        run: ls -R
+
+      - name: CI Completed
+        run: echo "CI Pipeline completed successfully!"
