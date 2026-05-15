@@ -33,6 +33,10 @@ jobs:
 
       #++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+      - name: Debug frontend folder
+        working-directory: ./frontend/train
+        run: ls -la
+
       - name: Install Frontend dependencies
         working-directory: ./frontend/train
         run: npm ci
@@ -62,7 +66,7 @@ jobs:
       # =========================
       # FINAL STEP
       # =========================
-      
+
       - name: Show repository files
         run: ls -R
 
