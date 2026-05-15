@@ -5,6 +5,7 @@ function App() {
     <>
       <h1>coool whats app</h1>
       <h1> how are u?</h1>
+      <h1>i am oke and u?</h1>
     </>
   );
 }
