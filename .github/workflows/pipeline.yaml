@@ -37,9 +37,10 @@ jobs:
         working-directory: ./frontend/train
         run: ls -la
 
-      - name: Install Frontend dependencies
-        working-directory: ./frontend/train
-        run: npm ci
+      - name: Install dependencies
+        run: |
+             cd frontend/train
+             npm ci
 
       - name: Build frontend Environment
         working-directory: ./frontend/train
